@@ -1,0 +1,441 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Surprise for Sania 💜</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: "Segoe UI", sans-serif;
+  color: white;
+  background: linear-gradient(135deg, #18052e, #58158a, #a044ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#balloons {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.balloon {
+  position: absolute;
+  bottom: -150px;
+  width: 48px;
+  height: 62px;
+  border-radius: 50% 50% 45% 45%;
+  opacity: 0.75;
+  animation: floatUp linear infinite;
+  box-shadow: inset -7px -5px 12px #0003,
+              inset 7px 5px 12px #ffffff40;
+}
+
+.balloon::before {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 19px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 8px solid currentColor;
+}
+
+.balloon::after {
+  content: "";
+  position: absolute;
+  top: 62px;
+  left: 23px;
+  width: 1px;
+  height: 65px;
+  background: #ffffff70;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(-8deg);
+    bottom: -150px;
+  }
+  50% {
+    transform: translateY(-50vh) rotate(8deg);
+  }
+  100% {
+    transform: translateY(-120vh) rotate(-8deg);
+    bottom: 100%;
+  }
+}
+
+.sparkle {
+  position: fixed;
+  color: #ffe7ff;
+  font-size: 20px;
+  animation: twinkle 2s infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.25; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1.3); }
+}
+
+.card {
+  position: relative;
+  z-index: 2;
+  width: min(90%, 430px);
+  padding: 35px 24px;
+  text-align: center;
+  background: #ffffff16;
+  border: 1px solid #ffffff50;
+  border-radius: 28px;
+  box-shadow: 0 0 40px #d78aff35;
+  backdrop-filter: blur(15px);
+  animation: appear 0.8s ease;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.emoji {
+  font-size: 65px;
+  margin-bottom: 15px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+h1 {
+  font-size: 29px;
+  margin-bottom: 14px;
+  color: #ffe2ff;
+  text-shadow: 0 0 18px #ed9cff80;
+}
+
+p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #fff4ff;
+  margin-bottom: 22px;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #e7b5ff;
+  border-radius: 14px;
+  outline: none;
+  background: #ffffff18;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+input::placeholder {
+  color: #edd5ff;
+}
+
+button {
+  padding: 13px 27px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #e8a6ff, #ffb9e9);
+  color: #43105e;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 5px 20px #e7a0ff40;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 25px #ffb7ff90;
+}
+
+#message {
+  color: #ffe1ed;
+  font-size: 14px;
+  margin-top: 12px;
+  min-height: 20px;
+}
+
+.progress {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin: 20px 0;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  background: #ffffff45;
+  border-radius: 50%;
+}
+
+.dot.active {
+  background: #ffc7ff;
+  box-shadow: 0 0 10px #ffc7ff;
+}
+
+.hidden {
+  display: none;
+}
+
+#celebration {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.confetti {
+  position: absolute;
+  top: -20px;
+  width: 9px;
+  height: 14px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+  }
+}
+
+.small {
+  font-size: 13px;
+  opacity: 0.75;
+  margin-top: 22px;
+  margin-bottom: 0;
+}
+</style>
+</head>
+
+<body>
+
+<div id="balloons"></div>
+<div id="celebration"></div>
+
+<div class="sparkle" style="top:10%;left:12%">✦</div>
+<div class="sparkle" style="top:20%;right:12%;animation-delay:1s">✧</div>
+<div class="sparkle" style="bottom:14%;left:10%;animation-delay:.5s">✦</div>
+<div class="sparkle" style="bottom:20%;right:10%;animation-delay:1.5s">✧</div>
+
+<main class="card">
+
+  <section id="login">
+    <div class="emoji">🎁</div>
+    <h1>A Special Surprise</h1>
+    <p>Someone special has a little surprise waiting for you. 💜</p>
+
+    <form id="loginForm">
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter Your Secret Password"
+        autocomplete="off"
+        required
+      >
+      <br>
+      <button type="submit">Unlock Surprise 🔐</button>
+    </form>
+
+    <div id="message" role="status"></div>
+    <p class="small">Made with care, just for Sania ✨</p>
+  </section>
+
+  <section id="surprise" class="hidden">
+    <div class="emoji" id="emoji">🌸</div>
+    <h1 id="heading">Welcome, Sania!</h1>
+    <p id="text">A little surprise just for you.</p>
+
+    <div class="progress" id="progress"></div>
+
+    <button id="nextBtn">Next Surprise 💜</button>
+    <p class="small" id="stepLabel">Step 1 of 8</p>
+  </section>
+
+</main>
+
+<script>
+/* Password: sania */
+const SECRET_PASSWORD = "sania";
+
+const steps = [
+  {
+    emoji: "🌸",
+    heading: "Welcome, Sania!",
+    text: "Today is a little more special because this surprise is just for you."
+  },
+  {
+    emoji: "💖",
+    heading: "You Are Truly Special",
+    text: "You have a beautiful place in the hearts of the people around you."
+  },
+  {
+    emoji: "👑",
+    heading: "My Special Sister",
+    text: "A sister like you makes life brighter in so many little ways."
+  },
+  {
+    emoji: "🎂",
+    heading: "A Little Birthday Surprise",
+    text: "May your special day bring you beautiful moments and endless smiles."
+  },
+  {
+    emoji: "🌷",
+    heading: "Sweet Words",
+    text: "You make every day brighter just by being the wonderful person you are."
+  },
+  {
+    emoji: "✨",
+    heading: "A Little Wish",
+    text: "May your life always be filled with happiness, peace, and beautiful dreams."
+  },
+  {
+    emoji: "🎁",
+    heading: "A Special Message",
+    text: "Keep smiling, stay confident, and never stop being your amazing self."
+  },
+  {
+    emoji: "💜",
+    heading: "For You, Sania!",
+    text: "You deserve all the happiness in the world. May every new day bring you something beautiful. Happy Birthday! 🎂🎉"
+  }
+];
+
+let currentStep = 0;
+
+const login = document.getElementById("login");
+const surprise = document.getElementById("surprise");
+const passwordInput = document.getElementById("password");
+const message = document.getElementById("message");
+const nextBtn = document.getElementById("nextBtn");
+
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  if (passwordInput.value === SECRET_PASSWORD) {
+    login.classList.add("hidden");
+    surprise.classList.remove("hidden");
+    showStep(0);
+  } else {
+    message.textContent = "Oops! Wrong password. Try again 💜";
+    passwordInput.value = "";
+    passwordInput.focus();
+  }
+});
+
+function showStep(index) {
+  const step = steps[index];
+
+  document.getElementById("emoji").textContent = step.emoji;
+  document.getElementById("heading").textContent = step.heading;
+  document.getElementById("text").textContent = step.text;
+  document.getElementById("stepLabel").textContent =
+    `Step ${index + 1} of ${steps.length}`;
+
+  const progress = document.getElementById("progress");
+  progress.replaceChildren();
+
+  steps.forEach((_, i) => {
+    const dot = document.createElement("span");
+    dot.className = "dot" + (i <= index ? " active" : "");
+    progress.appendChild(dot);
+  });
+
+  if (index === steps.length - 1) {
+    nextBtn.textContent = "Celebrate! 🎉";
+  } else {
+    nextBtn.textContent = "Next Surprise 💜";
+  }
+}
+
+nextBtn.addEventListener("click", function() {
+  if (currentStep < steps.length - 1) {
+    currentStep++;
+    showStep(currentStep);
+  } else {
+    celebrate();
+  }
+});
+
+function celebrate() {
+  document.getElementById("emoji").textContent = "🎉🎂🎈";
+  document.getElementById("heading").textContent = "Happy Birthday, Sania!";
+  document.getElementById("text").textContent =
+    "Wishing you a day full of smiles, laughter, love, and wonderful surprises! 💜";
+  document.getElementById("stepLabel").textContent =
+    "Your special day starts with a smile!";
+  document.getElementById("progress").classList.add("hidden");
+  nextBtn.textContent = "Celebrate Again ✨";
+  nextBtn.onclick = function() {
+    document.getElementById("progress").classList.remove("hidden");
+    currentStep = 0;
+    showStep(0);
+    celebrateConfetti();
+  };
+  celebrateConfetti();
+}
+
+function celebrateConfetti() {
+  const area = document.getElementById("celebration");
+  const colors = ["#ffb8ec", "#d9a6ff", "#ffffff", "#ffdf8e", "#c9a0ff"];
+
+  for (let i = 0; i < 70; i++) {
+    const piece = document.createElement("span");
+    piece.className = "confetti";
+    piece.style.left = Math.random() * 100 + "%";
+    piece.style.background =
+      colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDelay = Math.random() * 1.5 + "s";
+    piece.style.animationDuration = (2 + Math.random() * 2) + "s";
+    area.appendChild(piece);
+    setTimeout(() => piece.remove(), 5000);
+  }
+}
+
+/* Floating purple birthday balloons */
+const balloonArea = document.getElementById("balloons");
+const balloonColors = [
+  "#d58cff", "#f6a6ff", "#b18aff",
+  "#ff9edb", "#c4a1ff", "#ffcee9"
+];
+
+for (let i = 0; i < 18; i++) {
+  const balloon = document.createElement("div");
+  balloon.className = "balloon";
+
+  const color = balloonColors[i % balloonColors.length];
+  balloon.style.background = color;
+  balloon.style.color = color;
+  balloon.style.left = Math.random() * 100 + "%";
+  balloon.style.animationDuration = (9 + Math.random() * 12) + "s";
+  balloon.style.animationDelay = (-Math.random() * 18) + "s";
+  balloon.style.transform = `scale(${0.65 + Math.random() * 0.65})`;
+
+  balloonArea.appendChild(balloon);
+}
+</script>
+
+</body>
+  </html>
